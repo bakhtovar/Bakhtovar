@@ -1,4 +1,3 @@
-```markdown
 <div align="center">
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=280&color=gradient&customColorList=12,20,24,30&text=Bakhtovar%20Umarov&fontSize=70&fontColor=ffffff&fontAlignY=38&desc=iOS%20Engineer%20%7C%20Swift%20%7C%20SwiftUI%20%7C%20Fintech&descAlignY=58&descSize=20&animation=fadeIn&stroke=8B5CF6&strokeWidth=1" />
