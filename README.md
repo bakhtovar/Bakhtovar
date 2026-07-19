@@ -43,14 +43,13 @@
 
 ## About
 
-```swift
+
 let engineer = Engineer(
     name: "Bakhtovar Umarov",
     role: "iOS Developer",
     focus: [.fintech, .payments, .mobileSecurity],
     location: "Dushanbe, Tajikistan"
 )
-```
 
 iOS engineer with **3+ years** of production experience building native applications for banking, telecom, and super-app platforms serving regional user bases across Central Asia.
 
