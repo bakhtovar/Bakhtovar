@@ -475,4 +475,3 @@ open_to:
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=140&color=0:0B4F3A,50:11998E,100:38EF7D&section=footer&reversal=true" />
 
 </div>
-```
