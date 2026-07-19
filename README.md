@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=280&color=gradient&customColorList=12,20,24,30&text=Bakhtovar%20Umarov&fontSize=70&fontColor=ffffff&fontAlignY=38&desc=iOS%20Engineer%20%7C%20Swift%20%7C%20SwiftUI%20%7C%20Fintech&descAlignY=58&descSize=20&animation=fadeIn&stroke=8B5CF6&strokeWidth=1" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=280&color=0:0B4F3A,50:11998E,100:38EF7D&text=Bakhtovar%20Umarov&fontSize=70&fontColor=ffffff&fontAlignY=38&desc=iOS%20Engineer%20%7C%20Swift%20%7C%20SwiftUI%20%7C%20Fintech&descAlignY=58&descSize=20&animation=fadeIn&stroke=38EF7D&strokeWidth=1" />
 
 <a href="https://github.com/bakhtovar">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=26&duration=3000&pause=800&color=A78BFA&center=true&vCenter=true&width=700&lines=iOS+Developer+%7C+Swift+%7C+SwiftUI;Building+Secure+Mobile+Banking+Experiences;Payments%2C+Biometrics%2C+Certificate+Pinning;MVVM+%7C+Clean+Architecture+%7C+Coordinator;Fastlane+%7C+GitHub+Actions+%7C+TestFlight" alt="Typing SVG" />
@@ -472,7 +472,7 @@ open_to:
 
 > *Ship it secure, ship it stable, ship it on time.*
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=140&color=gradient&customColorList=12,20,24,30&section=footer&reversal=true" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=140&color=0:0B4F3A,50:11998E,100:38EF7D&section=footer&reversal=true" />
 
 </div>
 ```
