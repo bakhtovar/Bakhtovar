@@ -1,0 +1,19 @@
+- [Bundle id по платформам](blast-simulator-bundle-id.md) — iOS `com.blastpay.app`, Android `com.blastpay`; terminate/launch с чужим id молчат и врут
+- [Обход очереди для владельца](blast-owner-bypass.md) — живёт в dev_testers на облаке, в миграциях его нет
+- [Supabase-проекты Blast](blast-supabase-projects.md) — живой это «Blast App Dev», а «Blast Pay» пустышка
+- [Копии проектов на диске](blast-project-copies.md) — какие рабочие, какие дубли; кабинет теперь Desktop/Blast-Pay-Admin-Panel, клон в Documents устарел
+- [Сборка без --dart-define](blast-simulator-dart-define.md) — белый экран без ошибок; запускать только `make run`, он читает `.env.local`
+- [Кэш провайдеров и вход](blast-provider-user-scope.md) — провайдеры не autoDispose, ошибка переживает вход; логи Supabase в UTC, Душанбе +5
+- [App Store Review у Blast](blast-app-review.md) — входа по паролю нет, очередь раннего доступа блокирует ревьюера; переключать её должен владелец, классификатор не даёт
+- [Документация SmartPay](smartpay-docs-source.md) — PDF обрезаны на 2-й странице, полный текст в JS-бандле сайта
+- [Скилл и ключ SmartPay](smartpay-skill-location.md) — где скилл, граф и тестовый ключ; ключ в gitignored .env.smartpay
+- [Подарок и комбо в платеже](blast-gift-offers-payment.md) — с 22.09 вычитаются; набор по фикс-цене только с discount_fixed, иначе «к оплате 0»
+- [Схема версий](blast-app-version-scheme.md) — 1.1.1 на обеих платформах; поднял версию — сборка с +1, Android считает versionCode сам
+- [Правка RPC только от живого определения](blast-sql-function-overloads.md) — иначе рядом встаёт второй оверлоад и теряет половину тела
+- [Кабинет заведения](blast-merchant-panel-deploy.md) — blastpay.tj/admin выкатывается wrangler'ом (OAuth, не токен из файла) вместе с сайтом
+- [Ловушка const и темы](blast-const-widget-theme-trap.md) — виджет без полей не перекрашивается при смене темы; палитра глобальная
+- [Тихие часы пушей](blast-push-quiet-hours.md) — после 22:00 enqueue_push переносит отправку на 09:00, запись висит pending
+- [Деплой send-push](blast-send-push-verify-jwt.md) — только verify_jwt = false и только через CLI; иначе cron ловит 401
+- [Доступ сырым SQL не даёт приглашений](blast-access-grant-invites.md) — их начисляет только admin_grant_user_access; invite_entitlements не даёт начислить дважды
+- [Объекты базы только в облаке](blast-db-cloud-only-objects.md) — 45 функций и 4 таблицы без SQL на диске; текст в schema_migrations.statements
+- [Удаление веток блокируется](blast-git-branch-delete-blocked.md) — классификатор режет push --delete/branch -d; сразу давать команды пользователю
