@@ -1,0 +1,93 @@
+ОТВЕТ APP REVIEW — Guideline 2.1, «We were unable to sign in»
+Отправлять после того, как новый билд загружен и выбран в заявке.
+
+═══════════════════════════════════════════════════════════════════════
+ТЕКСТ
+═══════════════════════════════════════════════════════════════════════
+
+Hello,
+
+Thank you for the detail — it let us find the cause. We have fixed it in
+build 1.0 (6), which is attached to this submission.
+
+WHAT WENT WRONG
+
+The credentials were valid, but the password field was not on the first
+screen. Signing in with a password was behind a secondary text link
+("Sign in with a password") below the main button. Tapping the main
+button sent a one-time link to review@blastpay.tj — a mailbox the
+reviewer has no access to — which is a dead end. We can see in our logs
+that the session then continued through Sign in with Apple instead.
+
+WHAT WE CHANGED
+
+1. The secondary link is gone. There is now one button. After entering
+   the email address and tapping it, the app asks the server how that
+   address signs in and shows the password field directly for accounts
+   that have one. For the demo account this means:
+
+       enter review@blastpay.tj  →  tap the button  →  password field
+       enter reviewApple1        →  signed in
+
+   No hidden step, nothing to discover.
+
+2. Early access is switched off for the review period. Previously new
+   accounts joined a waiting queue before reaching the catalogue. Any
+   account now has full access immediately — including the Sign in with
+   Apple account created during your review, which we have granted
+   access to as well. The reviewer may use Sign in with Apple, Google,
+   an email link, or the demo credentials; all four give the same full
+   functionality.
+
+3. The "Terms" and "Privacy Policy" links on the sign-in screen were
+   coloured as links but did not respond to taps. They now open
+   https://www.blastpay.tj/terms and https://www.blastpay.tj/privacy
+   (English versions at /en/terms and /en/privacy).
+
+DEMO ACCOUNT (unchanged)
+
+    Email:    review@blastpay.tj
+    Password: <ВЫРЕЗАНО ПРИ УПАКОВКЕ — см. App Store Connect → Sign-In Information>
+
+The account has location and QR checks disabled, so a discount can be
+activated from anywhere in the world and the complete flow — catalogue,
+venue, offer conditions, activation, bill entry, visit history, review
+with photo, account deletion — is testable outside Tajikistan.
+
+The only step that cannot complete outside Tajikistan is the hand-off to
+local bank applications (Alif, Eskhata, Amonatbonk), which are not
+distributed elsewhere. No payment is charged during review, and the
+discount is applied by the venue regardless of payment method.
+
+Thank you,
+Blast Pay team
+
+═══════════════════════════════════════════════════════════════════════
+ЧТО ПОМЕНЯТЬ В APP REVIEW INFORMATION → NOTES
+═══════════════════════════════════════════════════════════════════════
+
+Заменить абзац про вход на этот:
+
+    Sign in: enter review@blastpay.tj on the first screen and tap the
+    main button. The app will ask for the password — reviewApple1.
+    Sign in with Apple and Google also work and give the same full
+    access; there is no waiting list.
+
+Убрать из заметок инструкцию «tap Войти по паролю / Sign in with a
+password»: этого шага больше нет.
+
+═══════════════════════════════════════════════════════════════════════
+ЧЕГО НЕ ЗАБЫТЬ ПЕРЕД ОТПРАВКОЙ
+═══════════════════════════════════════════════════════════════════════
+
+1. Собрать и загрузить новый билд — без него ответ бессмысленен: Apple
+   проверяет ту сборку, что приложена к заявке, а в 1.0 (5) старый экран.
+2. Выбрать новый билд в самой заявке.
+3. Обновить Notes (см. выше).
+4. Нажать Resubmit to App Review — ответ в Messages сам заявку в очередь
+   не возвращает.
+
+И отдельно, вне этого текста: очередь раннего доступа сейчас выключена
+целиком (app_config.early_access.enabled = false). После аппрува её надо
+включить обратно — иначе приложение уедет в продакшн без ограничения,
+ради которого оно вообще делалось.

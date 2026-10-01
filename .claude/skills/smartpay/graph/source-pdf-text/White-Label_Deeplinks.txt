@@ -1,0 +1,45 @@
+White-Label: Банковские диплинки на вашем сайте
+Интегрируйте кнопки оплаты через мобильные банковские приложения прямо на
+своём сайте. Клиент нажимает кнопку банка — и сразу переходит в мобильное
+приложение для оплаты.
+Схема взаимодействия
+Frontend Backend SmartPay Bank App
+1 onClick
+2 POST /invoices
+3 deeplink_url
+4 response
+5 location.href → Bank
+6 webhook
+после оплаты
+Наведите курсор на шаг для подсказки
+Шаг 1. Получите список банков
+Вызовите GET /merchant/banks один раз и закэшируйте результат.
+cURL Node.js Python PHP Go
+curl https://sandbox.smartpay.tj/api/merchant/banks \
+  -H "x-app-token: YOUR_API_KEY"
+Ответ:
+{
+  "banks": [
+    { "id": 8,  "name": "Алиф Банк" },
+    { "id": 9,  "name": "Эсхата" },
+    { "id": 2,  "name": "Амонатбонк" },
+    { "id": 4,  "name": "ICB" },
+    { "id": 7,  "name": "CBT/Фаврӣ" },
+    { "id": 10, "name": "Арванд" },
+    { "id": 13, "name": "ССБ" },
+    { "id": 15, "name": "Vasl Pay" }
+  ]
+}
+DEEPLINK_BANK_ID БАНК
+2 Амонатбонк
+4 ICB
+7 CBT / Фаврӣ
+8 Алиф Банк
+9 Эсхата
+
+
+10 Арванд
+11 Хумо
+13 ССБ
+15 Vasl Pay
+21 IBT

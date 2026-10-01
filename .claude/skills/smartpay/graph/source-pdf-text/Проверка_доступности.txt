@@ -1,0 +1,25 @@
+Проверка доступности API
+Проверяет валидность API-токена и возвращает UUID мерчанта. Используйте этот
+эндпоинт для проверки подключения перед началом интеграции.
+GET /merchant/health
+Проверяет валидность API-токена и возвращает UUID мерчанта.
+Пример запроса
+curl https://sandbox.smartpay.tj/api/merchant/health \
+  -H "x-app-token: YOUR_API_KEY"
+Ответ: Успех (HTTP 200)
+{
+  "merchant_unit_uuid": "d4f5e6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a"
+}
+Поля ответа
+ПОЛЕ ТИП ОПИСАНИЕ
+merchant_unit_uuid string UUID мерчанта в системе
+Smartpay
+HTTP-ошибки
+HTTP 401
+{ "detail": "Invalid API key" }
+Рекомендация
+Вызовите этот эндпоинт первым при настройке интеграции, чтобы
+убедиться что ваш API-ключ корректен и получить merchant_unit_uuid
+для дальнейшего использования.
+
+

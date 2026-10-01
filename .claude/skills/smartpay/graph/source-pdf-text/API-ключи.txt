@@ -1,0 +1,40 @@
+API-ключи
+API-ключи используются для авторизации запросов к API SmartPay из вашей биллинговой системы или интернет-магазина.
+Управление ключами доступно в личном кабинете: Танзимот (Settings) → API Keys.
+API Keys Webhooks Субагенты
+API Keys
+Test API keys are fully visible. Production keys are masked for security.
+API KEY ENVIRONMENT DESCRIPTION CREATED
+•••••••••••••••••••••••••••••••• Production
+Main
+production
+key
+15.01.2026
+4eC39HqLyjWDarjtT1zdp7dc Test Testing
+integration 10.01.2026
+Просмотр ключей
+Откройте вкладку API Keys в разделе настроек. Таблица содержит все ваши ключи.
+ТИП
+КЛЮЧА ВИДИМОСТЬ
+Test Можно просмотреть и скопировать. Нажмите иконку «глаз» для
+отображения/скрытия.
+Production Всегда скрыт (маскирован). Отображается только в момент создания.
+Создание нового ключа
+Generate API Key
+Environment *
+Production
+Description *
+Describe the purpose of this API key
+Cancel Generate API Key
+1. Нажмите кнопку «Generate API Key» (справа над таблицей).
+2. В модальном окне выберите окружение:
+Production — для рабочей среды (ключ будет показан только один раз!)
+Test — для тестирования
+3. Введите описание (для чего этот ключ).
+
+
+4. Нажмите «Generate API Key».
+5. Скопируйте ключ и сохраните его в надёжном месте.
+Внимание!
+Production-ключ отображается только в момент создания. После закрытия окна его невозможно будет увидеть
+снова. Обязательно сохраните его сразу.

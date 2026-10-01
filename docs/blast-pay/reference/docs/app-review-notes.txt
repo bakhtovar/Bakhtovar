@@ -1,0 +1,38 @@
+Demo account (also filled in the Sign-In Information fields above):
+
+User Name: review@blastpay.tj
+Password: <ВЫРЕЗАНО ПРИ УПАКОВКЕ — см. App Store Connect → Sign-In Information>
+
+HOW TO SIGN IN
+On the first screen, tap "Войти по паролю" / "Sign in with a password" — the small link under the orange email button — then enter the credentials above. Sign in with Apple and Google work as well, but they create a fresh account that lands in our early-access waitlist. The demo account skips the waitlist and opens every screen of the app.
+
+WHAT THE APP DOES
+Blast Pay shows live discounts at partner cafes and restaurants in Dushanbe, Tajikistan. The guest picks an offer, comes to the venue, activates the discount there, and the venue applies it to the bill. The app is free; we take no money from guests.
+
+WHAT THE DEMO ACCOUNT SHOWS
+Five partner venues with about forty live offers: the catalog, the map with venue pins, venue pages with opening hours, menu and terms, offer details with limits and time windows, coupon booking, payment step, visit history, reviews, profile and settings. We are still onboarding venues, so these numbers grow week to week.
+
+REDEEMING A DISCOUNT — PLEASE READ
+Normally the guest must be physically inside the partner venue: the app scans a QR sticker on the table and checks GPS within a 150-metre radius of that venue in Dushanbe. This is deliberate anti-fraud design — the discount is applied by restaurant staff at the table, not inside the app.
+
+Both checks are lifted for this demo account, so you can open any offer, swipe the activation slider and complete an activation from anywhere in the world.
+
+PAYMENT
+After activation the app opens the payment step, where the guest enters the bill amount and the app calculates the discount. Payment itself is handed off to a Tajik bank application (Alif, Eskhata, Amonatbonk and others) through the SmartPay gateway. Those bank apps are not available outside Tajikistan, so the bank-selection screen is as far as the flow goes for you. No payment is charged at any point, and the discount is applied by the venue regardless of how the guest pays. Blast Pay never receives or stores money, and never sees card data.
+
+There are no in-app purchases and no subscriptions in this build.
+
+LANGUAGE
+The app follows the device language and ships with English, Russian and Tajik. The demo account is set to English. Language can be changed under Profile → Settings → Language.
+
+ACCOUNT DELETION
+Available in the app: Profile → Settings → Delete account. It removes the profile, visits, favourites, reviews and review photos.
+
+USER-GENERATED CONTENT
+Guests can leave a rating, a review and photos, visible to other guests. Any review can be reported from the app (four reasons); three reports hide it until a moderator decides.
+
+CONTACT
+support@blastpay.tj — we answer on business days.
+
+Thank you,
+Blast Pay team

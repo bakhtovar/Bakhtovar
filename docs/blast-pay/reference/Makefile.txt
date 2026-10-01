@@ -1,0 +1,177 @@
+# Команды проекта. Локальные секреты хранятся в .env.local и не попадают в git.
+
+ENV_FILE := .env.local
+
+# Окружение релизной сборки. Именно make-переменная, а не то, что лежит в
+# .env.local: там ENV=staging для повседневных запусков, и `$${ENV:-prod}`
+# внутри рецепта подхватывал бы staging — релиз уезжал бы в App Store с
+# отладочным окружением и включёнными логами. Переопределяется на месте:
+# `make ipa RELEASE_ENV=staging`.
+RELEASE_ENV ?= prod
+
+# Символы релизной сборки iOS: их забирает Crashlytics, чтобы показывать
+# нативные кадры именами, а не адресами.
+DSYMS := build/ios/archive/Runner.xcarchive/dSYMs
+
+.PHONY: help setup run ipa aab tokens gen watch test analyze fmt fonts \
+        db-up db-down db-reset db-test db-new db-push clean
+
+help:
+	@grep -E '^[a-z-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+	  awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
+
+setup: ## Первый запуск: зависимости + токены + кодоген
+	flutter pub get
+	flutter gen-l10n
+	$(MAKE) tokens
+	$(MAKE) gen
+	$(MAKE) fmt
+
+run: ## Запустить приложение. Устройство: make run DEVICE=<id из flutter devices>
+	@# Падения из отладочной сборки в Crashlytics не уходят: они мешались бы
+	@# с настоящими и портили «процент сессий без сбоев». Проверить связку,
+	@# не собирая релиз: make run CRASHLYTICS_IN_DEBUG=true
+	@test -f $(ENV_FILE) || (echo "Не найден $(ENV_FILE). Выполните: cp .env.example $(ENV_FILE)"; exit 1)
+	@set -a; . ./$(ENV_FILE); set +a; \
+	: "$${SUPABASE_URL:?SUPABASE_URL не задан}"; \
+	: "$${SUPABASE_ANON_KEY:?SUPABASE_ANON_KEY не задан}"; \
+	: "$${GOOGLE_IOS_CLIENT_ID:?GOOGLE_IOS_CLIENT_ID не задан}"; \
+	: "$${GOOGLE_WEB_CLIENT_ID:?GOOGLE_WEB_CLIENT_ID не задан}"; \
+	case "$$SUPABASE_URL" in *your_project.supabase.co*) echo "SUPABASE_URL всё ещё содержит your_project.supabase.co. Укажи настоящий URL проекта."; exit 1;; esac; \
+	flutter run $(if $(DEVICE),-d $(DEVICE),) \
+		--dart-define=SUPABASE_URL="$$SUPABASE_URL" \
+		--dart-define=SUPABASE_ANON_KEY="$$SUPABASE_ANON_KEY" \
+		--dart-define=GOOGLE_IOS_CLIENT_ID="$$GOOGLE_IOS_CLIENT_ID" \
+		--dart-define=GOOGLE_WEB_CLIENT_ID="$$GOOGLE_WEB_CLIENT_ID" \
+		--dart-define=FIREBASE_API_KEY="$${FIREBASE_API_KEY:-}" \
+		--dart-define=FIREBASE_APP_ID="$${FIREBASE_APP_ID:-}" \
+		--dart-define=FIREBASE_SENDER_ID="$${FIREBASE_SENDER_ID:-}" \
+		--dart-define=FIREBASE_PROJECT_ID="$${FIREBASE_PROJECT_ID:-}" \
+		--dart-define=FIREBASE_IOS_API_KEY="$${FIREBASE_IOS_API_KEY:-}" \
+		--dart-define=FIREBASE_IOS_APP_ID="$${FIREBASE_IOS_APP_ID:-}" \
+		--dart-define=CRASHLYTICS_IN_DEBUG="$${CRASHLYTICS_IN_DEBUG:-false}" \
+		--dart-define=ENV="$${ENV:-staging}"
+
+ipa: ## Сборка для App Store: make ipa (RELEASE_ENV=prod по умолчанию)
+	@# Xcode сам по себе про --dart-define не знает: архив из Xcode берёт
+	@# DART_DEFINES из ios/Flutter/Generated.xcconfig, а туда их пишет
+	@# последняя команда flutter. Собранный так архив уносит в App Store
+	@# окружение последнего `make run` — в лучшем случае staging, в худшем
+	@# (на чистой машине) пустой SUPABASE_URL и белый экран на старте.
+	@# Поэтому релиз собирается отсюда, а Xcode остаётся только для
+	@# загрузки готового .ipa.
+	@#
+	@# Firebase на iOS нужен ровно для отчётов о падениях: пуши идут прямо
+	@# через APNs. Поэтому он не обязателен — без ключей сборка проходит,
+	@# просто падения никуда не уезжают.
+	@#
+	@# Следом уезжают символы: без них нативные кадры в Crashlytics видны
+	@# адресами. GoogleService-Info.plist для этого не нужен — upload-symbols
+	@# принимает идентификатор приложения флагом -ai. Выгрузка идёт после
+	@# сборки и не может её завалить: архив к этому моменту уже готов, а
+	@# неудача печатает предупреждение и только.
+	@test -f $(ENV_FILE) || (echo "Не найден $(ENV_FILE). Выполните: cp .env.example $(ENV_FILE)"; exit 1)
+	@set -a; . ./$(ENV_FILE); set +a; \
+	: "$${SUPABASE_URL:?SUPABASE_URL не задан}"; \
+	: "$${SUPABASE_ANON_KEY:?SUPABASE_ANON_KEY не задан}"; \
+	: "$${GOOGLE_IOS_CLIENT_ID:?GOOGLE_IOS_CLIENT_ID не задан}"; \
+	: "$${GOOGLE_WEB_CLIENT_ID:?GOOGLE_WEB_CLIENT_ID не задан}"; \
+	test -n "$${FIREBASE_IOS_APP_ID:-}" || \
+	  echo "ℹ️  FIREBASE_IOS_* не заданы — падения из этой сборки в Crashlytics не попадут"; \
+	flutter build ipa \
+		--dart-define=SUPABASE_URL="$$SUPABASE_URL" \
+		--dart-define=SUPABASE_ANON_KEY="$$SUPABASE_ANON_KEY" \
+		--dart-define=GOOGLE_IOS_CLIENT_ID="$$GOOGLE_IOS_CLIENT_ID" \
+		--dart-define=GOOGLE_WEB_CLIENT_ID="$$GOOGLE_WEB_CLIENT_ID" \
+		--dart-define=FIREBASE_IOS_API_KEY="$${FIREBASE_IOS_API_KEY:-}" \
+		--dart-define=FIREBASE_IOS_APP_ID="$${FIREBASE_IOS_APP_ID:-}" \
+		--dart-define=FIREBASE_SENDER_ID="$${FIREBASE_SENDER_ID:-}" \
+		--dart-define=FIREBASE_PROJECT_ID="$${FIREBASE_PROJECT_ID:-}" \
+		--dart-define=ENV="$(RELEASE_ENV)"
+	@# Отдельной строкой, а не через `;` после сборки: make выполняет каждую
+	@# строку своей оболочкой и останавливается на первой упавшей. Припиши я
+	@# выгрузку к той же команде — её `exit 0` съел бы код возврата
+	@# `flutter build ipa`, и провалившийся релиз отрапортовал бы успехом.
+	@set -a; . ./$(ENV_FILE); set +a; \
+	test -n "$${FIREBASE_IOS_APP_ID:-}" -a -d "$(DSYMS)" || exit 0; \
+	ios/Pods/FirebaseCrashlytics/upload-symbols \
+		-ai "$$FIREBASE_IOS_APP_ID" -p ios "$(DSYMS)" >/dev/null && \
+	  echo "✅ dSYM выгружены в Crashlytics" || \
+	  echo "⚠️  dSYM не выгрузились — нативные кадры останутся адресами"
+
+aab: ## Сборка для Google Play: make aab (RELEASE_ENV=prod по умолчанию)
+	@# Ровно та же ловушка, что и с Xcode, только тише: `flutter build
+	@# appbundle` без --dart-define соберётся и не скажет ни слова, а
+	@# SUPABASE_URL и ключ внутри окажутся пустыми строками —
+	@# String.fromEnvironment по умолчанию отдаёт именно её. В Play уедет
+	@# бандл, который у первого же тестировщика покажет белый экран.
+	@# GOOGLE_IOS_CLIENT_ID здесь не нужен: на Android плагин берёт
+	@# serverClientId из веб-клиента.
+	@test -f $(ENV_FILE) || (echo "Не найден $(ENV_FILE). Выполните: cp .env.example $(ENV_FILE)"; exit 1)
+	@test -f android/key.properties || echo "⚠️  android/key.properties нет — бандл подпишется отладочным ключом, Play такой отклонит (см. docs/google-play-readiness.md)"
+	@# Firebase не обязателен: без него сборка проходит, на Android остаются
+	@# локальные напоминания, удалённых пушей нет. Пустые значения здесь
+	@# безопаснее обязательной проверки — иначе релиз нельзя было бы собрать
+	@# до заведения проекта.
+	@set -a; . ./$(ENV_FILE); set +a; \
+	: "$${SUPABASE_URL:?SUPABASE_URL не задан}"; \
+	: "$${SUPABASE_ANON_KEY:?SUPABASE_ANON_KEY не задан}"; \
+	: "$${GOOGLE_WEB_CLIENT_ID:?GOOGLE_WEB_CLIENT_ID не задан}"; \
+	test -n "$${FIREBASE_PROJECT_ID:-}" || \
+	  echo "ℹ️  FIREBASE_* не заданы — удалённых пушей на Android в этой сборке не будет"; \
+	flutter build appbundle --release \
+		--dart-define=SUPABASE_URL="$$SUPABASE_URL" \
+		--dart-define=SUPABASE_ANON_KEY="$$SUPABASE_ANON_KEY" \
+		--dart-define=GOOGLE_WEB_CLIENT_ID="$$GOOGLE_WEB_CLIENT_ID" \
+		--dart-define=FIREBASE_API_KEY="$${FIREBASE_API_KEY:-}" \
+		--dart-define=FIREBASE_APP_ID="$${FIREBASE_APP_ID:-}" \
+		--dart-define=FIREBASE_SENDER_ID="$${FIREBASE_SENDER_ID:-}" \
+		--dart-define=FIREBASE_PROJECT_ID="$${FIREBASE_PROJECT_ID:-}" \
+		--dart-define=ENV="$(RELEASE_ENV)"
+	@echo
+	@keytool -printcert -jarfile build/app/outputs/bundle/release/app-release.aab 2>/dev/null | \
+	  awk '/Owner:/{print "Подписан: "$$0; exit}'
+
+tokens: ## design-tokens.json -> lib/app/theme/tokens.dart
+	dart run tool/gen_tokens.dart
+
+gen: ## Кодоген freezed / riverpod / drift / json
+	dart run build_runner build --delete-conflicting-outputs
+
+watch: ## Кодоген в режиме наблюдения
+	dart run build_runner watch --delete-conflicting-outputs
+
+fonts: ## Скачать шрифты в assets/fonts
+	bash tool/fetch_fonts.sh
+
+test: ## Тесты Dart
+	flutter test
+
+analyze: ## Анализатор + riverpod_lint
+	flutter analyze
+	dart run custom_lint
+
+fmt: ## Форматирование
+	dart format lib test tool
+
+db-up: ## Поднять локальный Supabase
+	supabase start
+
+db-down:
+	supabase stop
+
+db-reset: ## Накатить миграции и сиды заново
+	supabase db reset
+
+db-test: ## pgTAP-тесты (RLS, защита полей, i18n)
+	supabase test db
+
+db-new: ## make db-new NAME=add_visits
+	@test -n "$(NAME)" || (echo "make db-new NAME=имя_миграции"; exit 1)
+	supabase migration new $(NAME)
+
+db-push: ## Выкатить миграции на связанный проект
+	supabase db push --linked
+
+clean:
+	flutter clean && flutter pub get

@@ -1,0 +1,48 @@
+Создание инвойса
+Создаёт инвойс для оплаты. При успехе возвращает payment_link — ссылку для перенаправления клиента
+на страницу оплаты.
+Если инвойс с таким order_id уже существует — возвращается существующий инвойс (идемпотентность по
+order_id).
+POST /merchant/invoices
+Создает новый инвойс для оплаты
+cURL Node.js Python PHP Go
+curl https://sandbox.smartpay.tj/api/merchant/invoices \
+  -H "x-app-token: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d '{
+  "order_id": "42",
+  "amount": 150.5,
+  "description": "Оплата заказа #42",
+  "lifetime": 1800,
+  "return_url": "https://merchant.example.com/payment/ok",
+  "customer_phone": "935001234",
+  "name": "Иванов Иван",
+  "tin": "020010001"
+}'
+Параметры запроса
+Сумма
+PARAMETER TYPE DESCRIPTION
+amountrequired number
+Сумма в СОМОНИ (например 150.50). Минимум 2 сомони
+Example:150.50
+Идентификация
+PARAMETER TYPE DESCRIPTION
+order_idrequired string
+ID заказа мерчанта. Если инвойс с таким order_id уже
+есть — вернёт существующий (идемпотентность)
+Example:42
+Описание услуги
+PARAMETER TYPE DESCRIPTION
+descriptionrequired string
+Описание/назначение платежа
+Example:Оплата заказа #42
+payment_note string Дополнительная заметка — дописывается к
+описанию через ". " в конце
+
+
+Единицы измерения (для детализации в чеке)
+PARAMETER TYPE DESCRIPTION
+qty number
+Количество единиц (по умолчанию 1)
+Example:3

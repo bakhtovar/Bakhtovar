@@ -1,0 +1,100 @@
+ИСПРАВЛЕНИЕ ДЛЯ APP REVIEW
+Отправлять в том же треде Messages, отдельным сообщением.
+Этот же текст (пункты 1 и 2) внести правкой в App Review Information → Notes.
+Кнопку «Resubmit to App Review» нажимать ПОСЛЕ того, как Notes обновлены.
+
+═══════════════════════════════════════════════════════════════════════
+ТЕКСТ СООБЩЕНИЯ
+═══════════════════════════════════════════════════════════════════════
+
+Hello,
+
+Two statements in our previous message were inaccurate. We are correcting
+them ourselves rather than letting the reviewer discover the discrepancy.
+
+1. CORRECTION — THE APP DOES CONTAIN USER-GENERATED CONTENT
+
+We wrote that it does not. That is wrong, and we apologise for the
+confusion. After a visit, a guest can leave a star rating, a written review
+and photos, and these are shown to other guests on the venue page. The app
+has no chat and no user-to-user messaging.
+
+The mechanisms required by Guideline 1.2 are present in the build already
+submitted (1.0.2, build 5):
+
+- Only a guest whose visit the app itself verified can write a review, and
+  only one review per visit. Reviews cannot be posted anonymously, in bulk,
+  or without having been to the venue.
+- Every review written by another guest has a Report action with four
+  reasons: spam, offensive content, fake review, other.
+- Three reports hide a review immediately, pending a moderator decision.
+- Our published rules prohibit offensive content, other people's personal
+  data and advertising. We remove content that breaks them.
+- Contact for content concerns: support@blastpay.tj
+
+How to reach it with the demo account: open any venue from the main list,
+scroll to the reviews section, tap the "..." control on a review left by
+another guest, and choose Report.
+
+2. CORRECTION — MAPS
+
+We listed "Google Maps / MapKit". The app does not use Google Maps. On iOS
+the map is Apple MapKit. OpenStreetMap tiles are used only in our Android
+build, which is not part of this submission.
+
+The corrected list of external services for point 4 is:
+  - Supabase — database, authentication and file storage
+  - Sign in with Apple, Google Sign-In, magic email links — authentication
+  - Apple MapKit — maps and venue locations
+  - SmartPay — payment gateway that hands off to local bank applications
+No SMS providers, no AI services, no advertising networks, no third-party
+tracking SDKs.
+
+3. ADDITIONAL SCREEN RECORDING
+
+Our first recording did not show the review and reporting flow, because we
+had incorrectly described the app as having no user-generated content. Here
+is a second recording, captured on the same physical device running the
+submitted build, showing a review being written and the Report mechanism:
+
+<ССЫЛКА НА ВТОРОЙ РОЛИК>
+
+Everything else in our previous message stands: the app has no in-app
+purchases and no subscriptions, we do not hold or process user funds, and
+account deletion is available at Profile → Settings → Delete account.
+
+Thank you,
+Blast Pay team
+
+═══════════════════════════════════════════════════════════════════════
+ЧТО СНЯТЬ ВО ВТОРОМ РОЛИКЕ (≈40 секунд, физический iPhone)
+═══════════════════════════════════════════════════════════════════════
+
+1. Главный экран → открыть любое заведение.
+2. Пролистать до раздела отзывов, показать чужой отзыв с фотографией.
+3. Нажать «...» на чужом отзыве → показать список причин целиком
+   (спам / оскорбления / фейк / другое).
+4. Выбрать причину → показать подтверждение на экране.
+5. Своим визитом: «Мои визиты» → оценка и отзыв с фото → отправка.
+
+Ролик должен начинаться с запуска приложения — это отдельное требование
+Apple из пункта 1, оно относится к каждой записи.
+
+═══════════════════════════════════════════════════════════════════════
+ПОРЯДОК ДЕЙСТВИЙ
+═══════════════════════════════════════════════════════════════════════
+
+1. Снять второй ролик, выложить рядом с первым.
+2. App Review Information → Notes: заменить абзац про UGC и список внешних
+   сервисов на исправленные версии выше. Убрать квадратные скобки вокруг
+   [Supabase] и [Google Maps / MapKit] — они выглядят как незаполненный
+   шаблон.
+3. Отправить сообщение выше в тред Messages.
+4. Нажать «Resubmit to App Review». Новый билд не нужен: 1.0.2 (5) остаётся
+   прикреплённым, Apple просила информацию, а не исправление.
+
+Проверено в базе перед отправкой (проект Blast App Dev):
+  review@blastpay.tj — пароль установлен, почта подтверждена,
+  locale = en, активный dev_tester, обход проверки присутствия
+  в activate_offer применён. Всё, что обещано Apple про демо-аккаунт,
+  правда.

@@ -1,0 +1,39 @@
+Настройка Webhooks
+Webhooks позволяют автоматически получать уведомления о статусе платежей в вашу систему.
+Поддерживаются два типа: HTTPS и Telegram. Настройка доступна в личном кабинете: Танзимот (Settings)
+→ Webhooks.
+API Keys Webhooks Субагенты
+Webhooks Add Webhook
+DESCRIPTION TARGET URL HTTP METHOD
+Уведомления магазина https://yourstore.com/webhook POST
+Telegram уведомления https://api.telegram.org POST
+Создание HTTPS Webhook
+Add Webhook
+HTTPS Webhook Telegram Webhook
+Target URL *
+https://yourstore.com/webhook
+Description *
+Webhook description
+Headers (JSON)
+{
+  "Content-Type": "application/json",
+  "X-Api-Token": "64-символьный hex токен (генерируется
+автоматически)"
+}
+API Key Authorization: При создании webhook автоматически
+генерируется 64-символьный hex-токен в заголовке X-Api-Token.
+Используйте его на своей стороне для проверки подлинности входящих
+webhook-запросов.
+Электронная подпись (HMAC-SHA256)
+Каждый webhook-запрос будет содержать подпись payload в поле
+signature.
+Cancel Create HTTPS Webhook
+1. Откройте вкладку «Webhooks».
+2. Нажмите «Add Webhook».
+3. Выберите вкладку «HTTPS Webhook».
+
+
+4. Заполните поля: Target URL, Description, Headers (JSON).
+5. Нажмите «Create HTTPS Webhook».
+Формат уведомления
+При успешной оплате на ваш URL будет отправлен POST-запрос с JSON-телом:

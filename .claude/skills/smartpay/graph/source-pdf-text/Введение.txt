@@ -1,0 +1,46 @@
+Введение
+Добро пожаловать в документацию SmartPay Ecommerce API (версия 2).
+Smartpay — платформа онлайн-эквайринга для интернет-торговли, интегрированная с банками и
+мобильными операторами для приёма платежей через электронные кошельки, карты
+Visa/Mastercard/AMEX, Apple Pay и Google Pay.
+Базовые URL
+СРЕДА URL
+Sandbox (тестовая) https://sandbox.smartpay.tj/api/merchant
+Production https://ecomm.smartpay.tj/api/merchant
+Пошаговый Flow интеграции
+1 Получите API-токен
+Запросите токен у администратора Smartpay или сгенерируйте в личном кабинете.
+2 Проверьте подключение
+GET /health — получите merchant_unit_uuid
+3 Создайте инвойс
+POST /invoices — получите payment_link
+4 Перенаправьте клиента
+Перенаправьте клиента на payment_link для оплаты.
+5 Опрашивайте статус
+GET /order/status/{order_id} — пока status не станет "Charged"
+Ваш ключ API
+Для начала получите API-ключ в личном кабинете https://dashboard.smartpay.tj. Логин и
+пароль для доступа к личному кабинету предоставляется аккаунт-менеджером Smartpay.
+Для тестирования используйте тестовую среду (sandbox) по адресу:
+https://sandbox.smartpay.tj. Это позволяет отладить интеграцию без реальных транзакций.
+Для коммерческой среды используйте production среду по адресу:
+https://ecomm.smartpay.tj.
+Быстрый старт
+Для получения доступа к тестовой среде необходимо заполнить форму, направив
+следующие данные об организации:
+Название организации
+Адрес
+Телефон
+Email
+ИНН
+Банковские реквизиты
+Контактное лицо (ФИО, должность, email, телефон)
+Website
+Ссылка на логотип организации
+Различия Sandbox и Production
+
+
+ПАРАМЕТР SANDBOX PRODUCTION
+Base URL sandbox.smartpay.tj/api/merchant ecomm.smartpay.tj/api/merchant
+Ссылка
+оплаты /test/card-payment /card-payment

@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "name": "Blast Design Tokens",
+    "version": "1.0.0",
+    "theme": "dark-only",
+    "locales": [
+      "ru",
+      "tg",
+      "en"
+    ],
+    "note": "Глубина — светлотой поверхности. Кнопка brand: текст #0A0A0A (5.4:1). Белый на brand (3.11:1) не использовать."
+  },
+  "color": {
+    "bg": "#0A0A0A",
+    "surface": "#141418",
+    "surfaceElevated": "#1C1C22",
+    "surfaceSunken": "#101014",
+    "line": "#26262C",
+    "lineStrong": "#33333B",
+    "brand": "#FF5A2B",
+    "brandPressed": "#DC4118",
+    "brandDisabled": "#5C2716",
+    "brandTint": "#2A1710",
+    "brandSoft": "#FFD9C7",
+    "onBrand": "#FFFFFF",
+    "textPrimary": "#F5F3F1",
+    "textSecondary": "#A8A8B0",
+    "textTertiary": "#6E6E78",
+    "textDisabled": "#4A4A52",
+    "success": "#34C759",
+    "successTint": "#0F2A18",
+    "warning": "#FFB020",
+    "warningTint": "#2A2010",
+    "error": "#FF4D5E",
+    "errorTint": "#2A1219",
+    "skeletonBase": "#1C1C22",
+    "skeletonHighlight": "#26262C",
+    "glassFill": "rgba(28, 28, 34, 0.72)",
+    "glassBorder": "rgba(245, 243, 241, 0.08)",
+    "scrim": "rgba(10, 10, 10, 0.72)",
+    "photoScrim": "rgba(10, 10, 10, 0.88)",
+    "focusRing": "rgba(255, 90, 43, 0.24)",
+    "brandDark": "#B23D18",
+    "brandOnLight": "#B23D18",
+    "brandText": "#FF5A2B",
+    "chipFill": "#12F6F3F2",
+    "promoSurface": "#131318",
+    "promoLine": "#1AF6F3F2",
+    "promoDash": "#29F6F3F2",
+    "promoGlow": "#42FF5A2B",
+    "shadowSoft": "#73000000",
+    "shadowStrong": "#8C000000"
+  },
+  "font": {
+    "ui": "Inter",
+    "mono": "JetBrains Mono",
+    "weightRegular": 400,
+    "weightSemibold": 600,
+    "weightBold": 700,
+    "weightExtrabold": 800,
+    "display": "Syne",
+    "displayWeight": 800,
+    "displayNote": "Только латиница — кириллицы в Syne нет. Использовать исключительно для вордмарка Blast Pay."
+  },
+  "typography": {
+    "display": {
+      "family": "Inter",
+      "size": 32,
+      "lineHeight": 38,
+      "weight": 800,
+      "tracking": -0.033
+    },
+    "h1": {
+      "family": "Inter",
+      "size": 26,
+      "lineHeight": 32,
+      "weight": 800,
+      "tracking": -0.03
+    },
+    "h2": {
+      "family": "Inter",
+      "size": 20,
+      "lineHeight": 26,
+      "weight": 700,
+      "tracking": -0.02
+    },
+    "h3": {
+      "family": "Inter",
+      "size": 17,
+      "lineHeight": 22,
+      "weight": 600,
+      "tracking": -0.01
+    },
+    "body": {
+      "family": "Inter",
+      "size": 15,
+      "lineHeight": 22,
+      "weight": 400,
+      "tracking": 0
+    },
+    "bodyStrong": {
+      "family": "Inter",
+      "size": 15,
+      "lineHeight": 22,
+      "weight": 600,
+      "tracking": 0
+    },
+    "caption": {
+      "family": "Inter",
+      "size": 13,
+      "lineHeight": 18,
+      "weight": 400,
+      "tracking": 0
+    },
+    "micro": {
+      "family": "Inter",
+      "size": 11,
+      "lineHeight": 14,
+      "weight": 600,
+      "tracking": 0.02
+    },
+    "monoS": {
+      "family": "JetBrains Mono",
+      "size": 13,
+      "lineHeight": 18,
+      "weight": 600,
+      "tracking": 0.05
+    },
+    "monoOtp": {
+      "family": "JetBrains Mono",
+      "size": 24,
+      "lineHeight": 28,
+      "weight": 600,
+      "tracking": 0.1
+    },
+    "monoCode": {
+      "family": "JetBrains Mono",
+      "size": 28,
+      "lineHeight": 32,
+      "weight": 600,
+      "tracking": 0.1
+    },
+    "monoTimer": {
+      "family": "JetBrains Mono",
+      "size": 20,
+      "lineHeight": 24,
+      "weight": 600,
+      "tracking": 0.05
+    },
+    "wordmark": {
+      "family": "Syne",
+      "size": 34,
+      "lineHeight": 38,
+      "weight": 800,
+      "tracking": -0.015,
+      "transform": "uppercase"
+    }
+  },
+  "spacing": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 20,
+    "2xl": 24,
+    "3xl": 32,
+    "4xl": 40,
+    "5xl": 48,
+    "screenX": 16,
+    "cardGap": 12,
+    "sectionGap": 28
+  },
+  "radius": {
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "full": 999
+  },
+  "size": {
+    "touchMin": 44,
+    "icon": 24,
+    "iconSmall": 20,
+    "buttonL": 52,
+    "buttonM": 44,
+    "buttonS": 36,
+    "inputHeight": 52,
+    "otpCell": 56,
+    "avatar": 48,
+    "tabbarHeight": 64,
+    "qrButton": 56,
+    "swipeTrack": 60,
+    "swipeThumb": 52
+  },
+  "border": {
+    "hairline": 1,
+    "strong": 2,
+    "iconStroke": 1.75
+  },
+  "duration": {
+    "micro": 150,
+    "transition": 250,
+    "sheet": 400
+  },
+  "easing": {
+    "standard": "cubic-bezier(0.2, 0, 0, 1)",
+    "decelerate": "cubic-bezier(0.05, 0.7, 0.1, 1)",
+    "spring": "cubic-bezier(0.34, 1.3, 0.64, 1)"
+  },
+  "blur": {
+    "glass": 24,
+    "note": "Применяется ТОЛЬКО к таббару и плавающей кнопке QR."
+  },
+  "theme": {
+    "active": "dark",
+    "light": "reserved — токены заведены парами, светлая заполняется позже"
+  }
+}

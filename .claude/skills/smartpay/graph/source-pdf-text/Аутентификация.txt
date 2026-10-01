@@ -1,0 +1,32 @@
+Аутентификация
+Все запросы к SmartPay API должны быть аутентифицированы с
+помощью API Key, передаваемого в заголовке каждого запроса.
+Как это работает
+Тип API Key
+Заголовок x-app-token
+Описание Передаётся в каждом запросе. Токен
+выдаётся при регистрации мерчанта.
+Пример заголовка:
+curl https://sandbox.smartpay.tj/api/merchant/health \
+  -H "x-app-token: YOUR_API_KEY"
+Ошибки аутентификации
+При ошибке аутентификации API возвращает следующие ответы:
+HTTP 401Заголовок x-app-token отсутствует
+{ "detail": "API Key is required" }
+HTTP 401Токен невалиден
+{ "detail": "Invalid API key" }
+HTTP 403Внутренняя ошибка проверки
+{ "detail": "Not authenticated" }
+Получение API ключа
+Где получить ключ
+API ключ можно получить в личном кабинете, как показано в
+разделе Настройки → API-ключи.
+Для тестирования:
+https://sandbox.smartpay.tj/api/merchant
+Для production: https://ecomm.smartpay.tj/api/merchant
+
+
+Важно
+Запросы без корректного заголовка x-app-token вернут
+ошибку 401 Unauthorized. Sandbox-ключ не работает в
+production, и наоборот.
